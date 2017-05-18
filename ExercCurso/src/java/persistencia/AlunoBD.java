@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author alunoces
+ * @author José Flávio
  */
 public class AlunoBD {
 
@@ -33,18 +33,14 @@ public class AlunoBD {
             if (a.getMatricula() == matricula) {
                 a1 = a;
                 break;
-           
+            }
         }
+            if (a1 != null) {
+                   return a1;
+            } else {
+                return null;
+            }
         }
-    
-        if (a1 != null) {
-            return a1;
-            else
-            return null;
-        }
-        
-    }
-        
         //        for (i = 0; i < alunos.size(); i++) {
         //            if (alunos.get(i).getMatricula() == matricula) {
         //                achou = true;
@@ -57,7 +53,9 @@ public class AlunoBD {
         //            return null;
         //        }
 
-    public List<Aluno> buscarTodos() {
+    
+    public List<Aluno> buscarTodos() 
+    {
         return alunos;
     }
 
