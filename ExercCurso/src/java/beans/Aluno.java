@@ -8,6 +8,7 @@ public class Aluno {
     
     private String matricula;
     private String nome;
+    private String curso;
     private int periodo;
     private int anoDeIngresso;
     private double renda;
@@ -18,6 +19,7 @@ public class Aluno {
     public Aluno(String matricula, String nome, int periodo, int anoDeIngresso, double renda) {
         this.matricula = matricula;
         this.nome = nome;
+        this.curso = curso;
         this.periodo = periodo;
         this.anoDeIngresso = anoDeIngresso;
         this.renda = renda;
@@ -38,7 +40,15 @@ public class Aluno {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public String getCurso() {
+        return curso;
+    }
 
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+    
     public int getPeriodo() {
         return periodo;
     }
