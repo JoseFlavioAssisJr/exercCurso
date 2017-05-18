@@ -1,10 +1,14 @@
+import beans.Aluno;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import persistencia.AlunoBD;
 
 /**
  *
@@ -12,9 +16,42 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/ServletAluno"})
 public class ServletAluno extends HttpServlet {
+    
+    private AlunoBD bd = new AlunoBD();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int opcao = Integer.parseInt(request.getParameter("opcao").toString());
+        RequestDispatcher rd =null;
+        if(opcao==1) //Inserir um aluno
+        {
+            Aluno aluno = new Aluno();
+            
+            aluno.setMatricula(request.getParameter("vmatricula"));
+            aluno.setNome(request.getParameter("vnome"));
+            aluno.setCurso(request.getParameter("vcurso"));
+            aluno.setPeriodo(Integer.parseInt(request.getParameter("vperiodo").toString()));
+            aluno.setAnoDeIngresso(Integer.parseInt(request.getParameter("vanoDeIngresso").toString()));
+            aluno.setRenda(Double.parseDouble(request.getParameter("vrenda").toString()));
+            
+            bd.adicionarAluno(aluno);
+            
+            rd = request.getRequestDispatcher("ServletAluno?opcao=2");
+            
+        }
+        
+        if(opcao==2)
+        {
+            List<Aluno> todos = bd.buscarTodos();
+            
+            HttpSession session = request.getSession(true);
+            session.setAttribute("lista", todos);
+            
+            rd = request.getRequestDispatcher("listarAlunos.jsp");
+            
+        }
+        rd.forward(request, response);
         }
     
 
